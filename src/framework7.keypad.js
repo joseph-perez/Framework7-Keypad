@@ -332,6 +332,31 @@ Framework7.prototype.plugins.keypad = function (app) {
             }
             if (value !== invert && value !== perc) calcValues.push(value);
         };
+
+        p.triggerKeyDown = function(key) {
+            var el  = $(p.input)[0];
+            if (!el) {
+                return;
+            }
+            var evt = new CustomEvent('keydown', {bubbles: true, cancelable: true});
+            evt.key = key;
+            el.dispatchEvent(evt);
+        };
+
+        p.triggerKey = function(char) {
+            if (typeof char !== 'string') {
+                char = char.toString();
+            }
+            var el  = $(p.input)[0];
+            if (!el) {
+                return;
+            }
+            var code = char.charCodeAt(0);
+            var evt = new CustomEvent('keypress', {bubbles: true,cancelable: true});
+            evt.key = char;
+            evt.which = evt.keyCode = evt.charCode = code;
+            el.dispatchEvent(evt);
+        };
         // Value
         p.setValue = function (value) {
             p.updateValue(value);
@@ -363,10 +388,11 @@ Framework7.prototype.plugins.keypad = function (app) {
                 var button = p.params.buttons[buttonContainer.index()];
                 var buttonValue = button.value;
                 var currentValue = p.value;
-
+                var del = buttonContainer.hasClass('picker-keypad-delete');
+                var el = $(p.input)[0];
                 if (p.params.type === 'numpad') {
                     if (typeof currentValue === 'undefined') currentValue = '';
-                    if (buttonContainer.hasClass('picker-keypad-delete')) {
+                    if (del) {
                         currentValue = currentValue.substring(0, currentValue.length - 1);
                     }
                     else {
@@ -377,7 +403,19 @@ Framework7.prototype.plugins.keypad = function (app) {
                             currentValue += buttonValue;
                         }
                     }
-                    if (typeof currentValue !== 'undefined') p.setValue(currentValue);
+                    if (el.hasAttribute('data-mask')) {
+                        if (del) {
+                            p.triggerKeyDown('Backspace');
+                        } else {
+                            if (buttonValue && buttonValue !== '') {
+                                p.triggerKey(buttonValue);
+                            }
+                        }
+                    } else {
+                        if (typeof currentValue !== 'undefined') {
+                            p.setValue(currentValue);
+                        }
+                    }
                 }
                 if (p.params.type === 'calculator') {
                     p.calculator(button.value);

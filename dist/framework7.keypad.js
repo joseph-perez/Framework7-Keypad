@@ -422,7 +422,7 @@ Framework7.prototype.plugins.keypad = function (app) {
                         if (del) {
                             p.triggerKeyDown('Backspace');
                         } else {
-                            if (buttonValue && buttonValue !== '') {
+                            if (buttonValue != null && buttonValue !== '') {
                                 p.triggerKey(buttonValue);
                             }
                         }

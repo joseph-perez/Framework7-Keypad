@@ -1,6 +1,6 @@
 {
   "name": "softmotions-fm7-keypad",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Keypad plugin extends Framework7 with additional custom keyboards",
   "main": "dist/framework7.keypad.js",
   "repository": {

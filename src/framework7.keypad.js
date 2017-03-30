@@ -168,6 +168,7 @@ Framework7.prototype.plugins.keypad = function (app) {
             })(),
             // Common settings
             closeByOutsideClick: true,
+            openOnInput: true,
             scrollToInput: true,
             inputReadOnly: true,
             convertToPopover: true,
@@ -515,7 +516,7 @@ Framework7.prototype.plugins.keypad = function (app) {
             p.input = $(p.params.input);
             if (p.input.length > 0) {
                 if (p.params.inputReadOnly) p.input.prop('readOnly', true);
-                if (!p.inline) {
+                if (!p.inline && p.params.openOnInput) {
                     p.input.on('click', openOnInput);    
                 }
                 if (p.params.inputReadOnly) {
@@ -619,7 +620,7 @@ Framework7.prototype.plugins.keypad = function (app) {
         // Destroy
         p.destroy = function () {
             p.close();
-            if (p.params.input && p.input.length > 0) {
+            if (p.params.input && p.input.length > 0 && p.params.openOnInput) {
                 p.input.off('click focus', openOnInput);
             }
             $('html').off('click', closeOnHTMLClick);

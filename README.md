@@ -65,6 +65,12 @@ Let's look on list of all available parameters:
       <td>Scroll viewport (page-content) to input when keypad opened</td>
     </tr>
     <tr>
+      <td>openOnInput</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Automatically open keypad if HTMLElement is a input.</td>
+    </tr>
+    <tr>
       <td>inputReadOnly</td>
       <td>boolean</td>
       <td>true</td>

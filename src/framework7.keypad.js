@@ -433,9 +433,9 @@ Framework7.prototype.plugins.keypad = function (app) {
                 }
             }
 
-            buttonsContainer.on(app.touchEvents.start, handleClick);
+            buttonsContainer.on(app.touchEvents.end, handleClick);
             p.container[0].f7DestroyKeypadEvents = function () {
-                buttonsContainer.off(app.touchEvents.start, handleClick);
+                buttonsContainer.off(app.touchEvents.end, handleClick);
             };
 
         };

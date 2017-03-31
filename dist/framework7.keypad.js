@@ -10,7 +10,7 @@
  * 
  * Licensed under MIT
  * 
- * Released on: March 30, 2017
+ * Released on: March 31, 2017
  */
 
 Framework7.prototype.plugins.keypad = function (app) {
@@ -448,9 +448,9 @@ Framework7.prototype.plugins.keypad = function (app) {
                 }
             }
 
-            buttonsContainer.on(app.touchEvents.start, handleClick);
+            buttonsContainer.on(app.touchEvents.end, handleClick);
             p.container[0].f7DestroyKeypadEvents = function () {
-                buttonsContainer.off(app.touchEvents.start, handleClick);
+                buttonsContainer.off(app.touchEvents.end, handleClick);
             };
 
         };
